@@ -6,7 +6,23 @@ from fastapi.responses import StreamingResponse
 from uuid import UUID
 
 # --- FIX 1: ENSURE PROJECT ROOT IS ON PYTHON PATH ---
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Determine project root robustly. In some deployment images `main.py` is
+# placed directly in `/app` so taking two dirname() calls produced `/`.
+# Choose the directory (either the file's dir or its parent) that contains
+# the application packages (`graph`, `auth`, `tools`). Fall back to the
+# file's directory when in doubt.
+file_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(file_dir)
+
+def _choose_root(a: str, b: str) -> str:
+    for candidate in (a, b):
+        for sub in ("graph", "auth", "tools"):
+            if os.path.isdir(os.path.join(candidate, sub)):
+                return candidate
+    # fallback: prefer the file directory
+    return a
+
+project_root = _choose_root(file_dir, parent_dir)
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
