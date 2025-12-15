@@ -1,4 +1,4 @@
-# ay11sutra-backend/report/pdf_generator.py
+# backend/report/pdf_generator.py
 import os
 from jinja2 import Environment, FileSystemLoader
 from weasyprint import HTML

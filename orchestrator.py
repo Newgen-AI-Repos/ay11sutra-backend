@@ -1,10 +1,10 @@
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
-from ay11sutra-backend.tools.dom_scanner import scan_page
-from ay11sutra-backend.tools.wcag_mapper import map_to_wcag
-from ay11sutra-backend.tools.reporter import generate_report
-from ay11sutra-backend.tools.critic import critique_issues
+from backend.tools.dom_scanner import scan_page
+from backend.tools.wcag_mapper import map_to_wcag
+from backend.tools.reporter import generate_report
+from backend.tools.critic import critique_issues
 # Load API Key
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")

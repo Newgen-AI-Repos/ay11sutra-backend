@@ -1,4 +1,4 @@
-# ay11sutra-backend/database/connection.py
+# backend/database/connection.py
 """
 Database connection using SQLAlchemy + Neon PostgreSQL
 """

@@ -1,4 +1,4 @@
-# ay11sutra-backend/database/crud.py
+# backend/database/crud.py
 """
 CRUD operations for database models.
 """

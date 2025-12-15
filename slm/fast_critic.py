@@ -1,4 +1,4 @@
-# ay11sutra-backend/slm/fast_critic.py
+# backend/slm/fast_critic.py
 """
 Hybrid SLM (Small Language Model) Layer
 ========================================

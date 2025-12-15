@@ -1,4 +1,4 @@
-# ay11sutra-backend/graph/nodes.py
+# backend/graph/nodes.py
 
 import json
 import os
@@ -7,13 +7,13 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 
 # Import Tools
-from ay11sutra-backend.tools.dom_scanner import scan_page
-from ay11sutra-backend.tools.wcag_mapper import enrich_with_wcag
-from ay11sutra-backend.tools.critic import critique_issues
-from ay11sutra-backend.guardrails.input_guard import validate_input
-from ay11sutra-backend.guardrails.output_guard import validate_fix
-from ay11sutra-backend.slm.fast_critic import fast_critique
-# from ay11sutra-backend.dpi.bhashini import translate_text # New DPI Service - COMMENTED OUT FOR NOW
+from backend.tools.dom_scanner import scan_page
+from backend.tools.wcag_mapper import enrich_with_wcag
+from backend.tools.critic import critique_issues
+from backend.guardrails.input_guard import validate_input
+from backend.guardrails.output_guard import validate_fix
+from backend.slm.fast_critic import fast_critique
+# from backend.dpi.bhashini import translate_text # New DPI Service - COMMENTED OUT FOR NOW
 
 load_dotenv()
 

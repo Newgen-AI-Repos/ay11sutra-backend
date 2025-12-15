@@ -1,4 +1,4 @@
-# ay11sutra-backend/cache/dom_cache.py
+# backend/cache/dom_cache.py
 """
 DOM Fingerprinting for cache consistency.
 Creates a stable hash of page content, ignoring dynamic elements.

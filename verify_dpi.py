@@ -5,8 +5,8 @@ import os
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from ay11sutra-backend.graph.workflow import audit_graph
-from ay11sutra-backend.tools.wcag_mapper import enrich_with_wcag
+from backend.graph.workflow import audit_graph
+from backend.tools.wcag_mapper import enrich_with_wcag
 
 async def test_dpi():
     print("🇮🇳 Starting DPI Verification Test...")

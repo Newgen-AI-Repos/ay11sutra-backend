@@ -1,4 +1,4 @@
-# ay11sutra-backend/auth/jwt.py
+# backend/auth/jwt.py
 """
 JWT Token handling for authentication.
 """

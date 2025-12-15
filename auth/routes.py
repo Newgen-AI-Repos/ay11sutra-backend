@@ -1,4 +1,4 @@
-# ay11sutra-backend/auth/routes.py
+# backend/auth/routes.py
 """
 Authentication API routes.
 """

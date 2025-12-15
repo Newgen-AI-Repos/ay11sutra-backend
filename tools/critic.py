@@ -1,4 +1,4 @@
-# ay11sutra-backend/tools/critic.py
+# backend/tools/critic.py
 
 def critique_issues(issues):
     prioritized = []
