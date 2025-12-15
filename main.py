@@ -85,7 +85,7 @@ def health_check(db: Session = Depends(get_db)):
 async def start_crawl(request: CrawlRequest):
     print(f"🚀 API: Received crawl request for {request.url}")
     try:
-        from backend.tools.crawler import crawl_website
+        from ay11sutra-backend.tools.crawler import crawl_website
         urls = await crawl_website(request.url, request.max_pages)
         return {"urls": urls}
     except ImportError as e:
@@ -109,8 +109,8 @@ async def start_audit(
     print(f"👤 User: {current_user['email']}")
     
     try:
-        from backend.graph.workflow import audit_graph
-        from backend.tools.dom_scanner import scan_page
+        from ay11sutra-backend.graph.workflow import audit_graph
+        from ay11sutra-backend.tools.dom_scanner import scan_page
         
         # Step 0: Time-based Cache Check (Optimization)
         if not request.force_rescan:
@@ -294,7 +294,7 @@ async def get_audit_detail(
 async def export_pdf(request: PdfRequest):
     """Generate PDF report."""
     try:
-        from backend.report.pdf_generator import generate_pdf_report
+        from ay11sutra-backend.report.pdf_generator import generate_pdf_report
 
         report_data = {
             "summary": request.summary,

@@ -1,10 +1,10 @@
-# backend/graph/workflow.py
+# ay11sutra-backend/graph/workflow.py
 
 from langgraph.graph import StateGraph, END
-from backend.graph.state import AuditState
+from ay11sutra-backend.graph.state import AuditState
 
 # Import ALL nodes (including the new ones)
-from backend.graph.nodes import (
+from ay11sutra-backend.graph.nodes import (
     scanner_node, 
     critic_node, 
     fixer_node, 

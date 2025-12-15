@@ -5,7 +5,7 @@ import os
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from backend.graph.workflow import audit_graph
+from ay11sutra-backend.graph.workflow import audit_graph
 
 async def test_audit():
     print("🧪 Starting Verification Test...")
