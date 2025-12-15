@@ -5,8 +5,53 @@ import io
 from fastapi.responses import StreamingResponse
 from uuid import UUID
 
-# --- FIX 1: ADD PARENT DIRECTORY TO PYTHON PATH ---
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# --- FIX 1: ENSURE PROJECT ROOT IS ON PYTHON PATH ---
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# --- BACKEND ALIAS FOR DEPLOYED FOLDER NAMES ---
+# Some deployments place the application files at the project root (e.g.
+# `graph/`, `auth/`, `tools/` are siblings of this file) rather than nested
+# inside a `backend/` package. In that case Python may pick an empty
+# `backend/` directory (if present) and imports like
+# `from backend.graph.workflow` will fail. To make imports robust in all
+# environments we register a runtime module named 'backend' whose __path__
+# points to the directory that actually contains the application packages.
+backend_folder = os.getenv("BACKEND_FOLDER", "backend")
+candidate_dirs = [os.path.join(project_root, backend_folder), project_root]
+
+def _find_backend_path(candidates):
+    """Return the first existing candidate that contains expected subpackages."""
+    expected = ("graph", "auth", "tools")
+    for d in candidates:
+        try:
+            if not os.path.isdir(d):
+                continue
+            # If directory contains any expected subpackage, choose it
+            for sub in expected:
+                if os.path.isdir(os.path.join(d, sub)):
+                    return d
+            # If directory contains __init__.py it may already be a package
+            if os.path.isfile(os.path.join(d, "__init__.py")):
+                return d
+        except Exception:
+            continue
+    # Fallback to project root
+    return project_root
+
+backend_dir = _find_backend_path(candidate_dirs)
+try:
+    import types
+
+    backend_module = types.ModuleType("backend")
+    backend_module.__path__ = [backend_dir]
+    sys.modules["backend"] = backend_module
+    print(f"DEBUG: Registered runtime 'backend' alias -> {backend_dir}")
+except Exception as e:
+    print(f"WARN: Failed to create backend alias: {e}")
+
+print("DEBUG: sys.path:", sys.path)
 
 # --- FIX 2: WINDOWS SPECIFIC LOOP POLICY ---
 if sys.platform.startswith("win"):
