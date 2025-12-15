@@ -318,6 +318,17 @@ async def export_pdf(request: PdfRequest):
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# Add dynamic path resolution to support both local and live environments
+import sys
+import os
+
+# Dynamically determine the backend folder name
+backend_folder = os.getenv("BACKEND_FOLDER", "backend")
+backend_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), backend_folder)
+if backend_path not in sys.path:
+    sys.path.append(backend_path)
+
+
 # Initialize database on startup
 @app.on_event("startup")
 async def startup_event():
